@@ -51,6 +51,7 @@
             asphalt = new RadioButton();
             label4 = new Label();
             panel2 = new Panel();
+            animation = new PictureBox();
             brackingDistanceField = new TextBox();
             calculate = new Button();
             panel1.SuspendLayout();
@@ -60,6 +61,7 @@
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)animation).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -320,8 +322,9 @@
             // 
             // panel2
             // 
-            panel2.BackgroundImage = (Image)resources.GetObject("panel2.BackgroundImage");
+            panel2.BackgroundImage = Properties.Resources.main_bgi;
             panel2.BackgroundImageLayout = ImageLayout.Zoom;
+            panel2.Controls.Add(animation);
             panel2.Controls.Add(brackingDistanceField);
             panel2.Controls.Add(calculate);
             panel2.Dock = DockStyle.Fill;
@@ -330,6 +333,16 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(848, 499);
             panel2.TabIndex = 1;
+            // 
+            // animation
+            // 
+            animation.BackgroundImage = (Image)resources.GetObject("animation.BackgroundImage");
+            animation.BackgroundImageLayout = ImageLayout.Zoom;
+            animation.Location = new Point(597, 361);
+            animation.Name = "animation";
+            animation.Size = new Size(239, 126);
+            animation.TabIndex = 3;
+            animation.TabStop = false;
             // 
             // brackingDistanceField
             // 
@@ -383,6 +396,7 @@
             panel6.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)animation).EndInit();
             ResumeLayout(false);
         }
 
@@ -412,5 +426,6 @@
         private Label label4;
         private Button calculate;
         private TextBox brackingDistanceField;
+        private PictureBox animation;
     }
 }

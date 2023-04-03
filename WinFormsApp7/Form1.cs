@@ -6,6 +6,8 @@
         public Form1()
         {
             InitializeComponent();
+
+            //animation.Dock = DockStyle.Fill;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -19,8 +21,17 @@
 
         private void calculate_Click(object sender, EventArgs e)
         {
-            brackingDistance = GetBrackingDistance(double.Parse(textBox1.Text), GetFriction());
-            brackingDistanceField.Text = $"С учетом указанных условий рассчета, тормозной путь автомобиля составит {brackingDistance} метров";
+            if (textBox1.Text.Length > 0)
+            {
+                brackingDistance = GetBrackingDistance(double.Parse(textBox1.Text), GetFriction());
+
+
+
+                brackingDistanceField.Text = $"С учетом указанных условий рассчета, тормозной путь автомобиля составит {brackingDistance} метров";
+            }
+            else
+                MessageBox.Show("Введите скорость автомобиля");
+
         }
 
         double GetFriction()
@@ -104,7 +115,9 @@
         double GetBrackingDistance(double startingSpeed, double friction)
         {
             //d = (v ^ 2 / 2μg)
-            return Math.Pow(startingSpeed, 2) / (20 * friction * 9.8);
+            startingSpeed = startingSpeed * 1000 / 3600;// км/час переводим в м/с
+
+            return Math.Pow(startingSpeed, 2) / (2 * friction * 9.8);
         }
     }
 }
