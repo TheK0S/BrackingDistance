@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel1 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel3 = new Panel();
@@ -51,7 +50,7 @@
             asphalt = new RadioButton();
             label4 = new Label();
             panel2 = new Panel();
-            animation = new PictureBox();
+            historyBTN = new Button();
             brackingDistanceField = new TextBox();
             calculate = new Button();
             panel1.SuspendLayout();
@@ -61,7 +60,6 @@
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)animation).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -324,7 +322,7 @@
             // 
             panel2.BackgroundImage = Properties.Resources.main_bgi;
             panel2.BackgroundImageLayout = ImageLayout.Zoom;
-            panel2.Controls.Add(animation);
+            panel2.Controls.Add(historyBTN);
             panel2.Controls.Add(brackingDistanceField);
             panel2.Controls.Add(calculate);
             panel2.Dock = DockStyle.Fill;
@@ -334,15 +332,17 @@
             panel2.Size = new Size(848, 499);
             panel2.TabIndex = 1;
             // 
-            // animation
+            // historyBTN
             // 
-            animation.BackgroundImage = (Image)resources.GetObject("animation.BackgroundImage");
-            animation.BackgroundImageLayout = ImageLayout.Zoom;
-            animation.Location = new Point(597, 361);
-            animation.Name = "animation";
-            animation.Size = new Size(239, 126);
-            animation.TabIndex = 3;
-            animation.TabStop = false;
+            historyBTN.FlatStyle = FlatStyle.Flat;
+            historyBTN.ForeColor = Color.LightGray;
+            historyBTN.Location = new Point(655, 440);
+            historyBTN.Name = "historyBTN";
+            historyBTN.Size = new Size(189, 55);
+            historyBTN.TabIndex = 3;
+            historyBTN.Text = "История";
+            historyBTN.UseVisualStyleBackColor = true;
+            historyBTN.Click += historyBTN_Click;
             // 
             // brackingDistanceField
             // 
@@ -384,6 +384,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Расчет тормозного пути";
+            FormClosing += Form1_FormClosing;
             panel1.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -396,7 +397,6 @@
             panel6.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)animation).EndInit();
             ResumeLayout(false);
         }
 
@@ -426,6 +426,6 @@
         private Label label4;
         private Button calculate;
         private TextBox brackingDistanceField;
-        private PictureBox animation;
+        private Button historyBTN;
     }
 }

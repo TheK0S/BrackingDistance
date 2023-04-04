@@ -1,14 +1,20 @@
-﻿namespace WinFormsApp7
+﻿using Newtonsoft.Json;
+
+namespace WinFormsApp7
 {
     public partial class Form1 : Form
     {
         double brackingDistance;
+        List<Calculation> calculations = new List<Calculation>();
+        string path = "calculationHistory.json";
+
         public Form1()
         {
             InitializeComponent();
 
-            //animation.Dock = DockStyle.Fill;
+            ReadJson();
         }
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -25,9 +31,9 @@
             {
                 brackingDistance = GetBrackingDistance(double.Parse(textBox1.Text), GetFriction());
 
-
-
                 brackingDistanceField.Text = $"С учетом указанных условий рассчета, тормозной путь автомобиля составит {brackingDistance} метров";
+
+                SaveResult();
             }
             else
                 MessageBox.Show("Введите скорость автомобиля");
@@ -118,6 +124,53 @@
             startingSpeed = startingSpeed * 1000 / 3600;// км/час переводим в м/с
 
             return Math.Pow(startingSpeed, 2) / (2 * friction * 9.8);
+        }
+
+        void SaveResult()
+        {
+            var calc = new Calculation(double.Parse(textBox1.Text), weather_dry.Checked, weather_rain.Checked, weather_snow.Checked,
+                weather_ice.Checked, summerTires.Checked, winterTires.Checked, skinTires.Checked, asphalt.Checked, gravel.Checked, primming.Checked);
+            if (!CalulationExists(calc))
+                calculations.Add(calc);
+        }
+
+        void WriteJson()
+        {
+            File.WriteAllText(path, JsonConvert.SerializeObject(calculations));
+        }
+
+        void ReadJson()
+        {
+            try
+            {
+                calculations = JsonConvert.DeserializeObject<List<Calculation>>(File.ReadAllText(path)) ?? new List<Calculation>();
+            }
+            catch (Exception)
+            {
+
+            }            
+        }
+
+        bool CalulationExists(Calculation calc)
+        {
+            bool existed = false;
+
+            foreach (Calculation calculation in calculations)
+                if(calculation  == calc)
+                    existed = true;
+
+            return existed;
+        }
+
+        private void historyBTN_Click(object sender, EventArgs e)
+        {
+            History history = new History(calculations);
+            history.Show();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            WriteJson();
         }
     }
 }
